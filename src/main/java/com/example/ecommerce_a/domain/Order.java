@@ -14,8 +14,8 @@ public class Order {
 	String destinationEmail;
 	String destinationZipcode;
 	String destinationAddress;
-	String destnationTel;
-	Timestamp delivertyTime;
+	String destinationTel;
+	Timestamp deliveryTime;
 	Integer paymentMethod;
 	User user;
 	List<OrderItem> orderItemList;
@@ -92,20 +92,20 @@ public class Order {
 		this.destinationAddress = destinationAddress;
 	}
 
-	public String getDestnationTel() {
-		return destnationTel;
+	public String getDestinationTel() {
+		return destinationTel;
 	}
 
-	public void setDestnationTel(String destnationTel) {
-		this.destnationTel = destnationTel;
+	public void setDestinationTel(String destinationTel) {
+		this.destinationTel = destinationTel;
 	}
 
-	public Timestamp getDelivertyTime() {
-		return delivertyTime;
+	public Timestamp getDeliveryTime() {
+		return deliveryTime;
 	}
 
-	public void setDelivertyTime(Timestamp delivertyTime) {
-		this.delivertyTime = delivertyTime;
+	public void setDeliveryTime(Timestamp deliveryTime) {
+		this.deliveryTime = deliveryTime;
 	}
 
 	public Integer getPaymentMethod() {
