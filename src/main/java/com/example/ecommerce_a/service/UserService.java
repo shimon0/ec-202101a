@@ -34,7 +34,7 @@ public class UserService {
 	 * @param email
 	 * @return ユーザー情報
 	 */
-	public User findByMailAddress(String email) {
+	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 }

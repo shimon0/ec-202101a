@@ -1,5 +1,10 @@
 package com.example.ecommerce_a.form;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * ユーザー登録時に使用するフォーム
  * 
@@ -9,18 +14,29 @@ package com.example.ecommerce_a.form;
 public class UserForm {
 
 	/**名前*/
+	@NotBlank(message="名前を入力して下さい")
 	private String name;
 	/**メールアドレス*/
+	@NotBlank(message="メールアドレスを入力して下さい")
+	@Email(message="メールアドレスの形式が不正です")
 	private String email;
 	/**郵便番号*/
+	@NotBlank(message="郵便番号を入力して下さい")
+	@Pattern(regexp="^[0-9]{3}-[0-9]{4}$", message="郵便番号はXXX-XXXXの形式で入力してください")
 	private String zipcode;
 	/**住所*/
+	@NotBlank(message="住所を入力して下さい")
 	private String address;
 	/**電話番号*/
+	@NotBlank(message="電話番号を入力して下さい")
+	@Pattern(regexp="^[0-9]{3}-[0-9]{4}-[0-9]{4}$", message="電話番号はXXX-XXXX-XXXXの形式で入力してください")
 	private String telephone;
 	/**パスワード*/
+	@NotBlank(message="パスワードを入力して下さい")
+	@Size(min=8, max=16, message="パスワードは８文字以上１６文字以内で設定してください")
 	private String password;
 	/**確認用パスワード*/
+	@NotBlank(message="確認用パスワードを入力して下さい")
 	private String confirmpassword;
 	
 	public String getName() {
