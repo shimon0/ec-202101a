@@ -22,6 +22,7 @@ public class ItemController {
     public String index(Model model){
         List<Item> itemList=service.findAll();
         model.addAttribute("itemList", itemList);
+        System.out.println(itemList);
         return "item_list_coffee";
     }
     @RequestMapping("/searchWord")

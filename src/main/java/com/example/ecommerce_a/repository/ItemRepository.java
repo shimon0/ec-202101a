@@ -28,7 +28,7 @@ public class ItemRepository {
 	 * @return 商品一覧
 	 */
 	public List<Item> findAll(){
-		String sql="SELECT name,price_m,price_l,image_path FROM items　ORDER BY  price_m  ASC ;";
+		String sql="SELECT name,price_m,price_l,image_path FROM items ORDER BY  price_m  ASC ;";
 		List<Item> itemList=template.query(sql, ITEM_ROW_MAPPER);
 		
 		return itemList;
@@ -40,14 +40,14 @@ public class ItemRepository {
 	 * @return　商品一覧
 	 */
 	public List<Item> findByLikeName(String searchWord) {
-		String sql="SELECT name,price_m,price_l,image_path FROM items　WHERE　name like :name;";
+		String sql="SELECT name,price_m,price_l,image_path FROM items WHERE name like :name;";
 		SqlParameterSource param=new MapSqlParameterSource().addValue("name", "%"+searchWord+"%");
 		List<Item> itemList=template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
 	}
 	
 	public Item load(Integer id) {
-		String sql="SELECT name,  price_m,price_l,image_path,description FROM items WHERE　id=:id";
+		String sql="SELECT name,  price_m,price_l,image_path,description FROM items WHERE id=:id";
 		SqlParameterSource param=new MapSqlParameterSource().addValue("id", id);
 		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
