@@ -33,7 +33,7 @@ public class UserController {
 	 * 
 	 * @return ユーザー登録画面
 	 */
-	@RequestMapping("/toRegister")
+	@RequestMapping("/register")
 	public String toRegister() {
 		return "register_user";
 	}
@@ -43,8 +43,8 @@ public class UserController {
 	 * @param model
 	 * @return ログイン画面へリダイレクト
 	 */
-	@RequestMapping("/register")
-	public String register (UserForm form, Model model) {
+	@RequestMapping("/insert")
+	public String insert (UserForm form, Model model) {
 		User user = new User();
 		user.setName(form.getName());
 		user.setEmail(form.getEmail());
