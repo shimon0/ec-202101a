@@ -23,6 +23,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * @return UserFormをインスタンス化
+	 */
 	@ModelAttribute
 	public UserForm setUpUserForm() {
 		return new UserForm();
@@ -74,6 +77,5 @@ public class UserController {
 		
 		return "redirect:/login";
 	}
-	
 	
 }
