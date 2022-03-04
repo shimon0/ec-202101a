@@ -76,7 +76,7 @@
               <div class="panel-title">商品を検索する</div>
             </div>
             <div class="panel-body">
-              <form method="post" th:action="@{/searchWord}" class="form-horizontal">
+              <form method="post" th:action="@{/shoppingList/searchWord}" class="form-horizontal">
                 <div class="form-group">
                   <label for="code" class="control-label col-sm-2"
                     >商品名</label
@@ -109,6 +109,8 @@
       <!-- table -->
       
       
+      <span th:text="${nullMessage}"  class="img-responsive img-rounded item-img-center"></span>
+
       <div class="row">
         <div
           class="

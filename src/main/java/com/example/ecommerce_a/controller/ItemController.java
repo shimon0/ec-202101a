@@ -31,7 +31,7 @@ public class ItemController {
         if(itemList.size()==0){
             String nullMessage="該当する商品がありません";
             model.addAttribute("nullMessage", nullMessage);
-            return "redirect:/shoppingList";
+            return index(model);
         }
         model.addAttribute("itemList", itemList);
         return "item_list_coffee";
