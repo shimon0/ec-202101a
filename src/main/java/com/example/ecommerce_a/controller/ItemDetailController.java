@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.ecommerce_a.domain.Item;
 import com.example.ecommerce_a.domain.Topping;
+import com.example.ecommerce_a.repository.OrderItemRepository;
 import com.example.ecommerce_a.service.ItemDetailService;
 import com.example.ecommerce_a.service.ItemService;
 
@@ -22,6 +23,9 @@ public class ItemDetailController {
     @Autowired
     private ItemDetailService itemDetailService;
 
+    @Autowired
+    private OrderItemRepository repository;
+
     @RequestMapping("")
     public  String index(String id,Model model){
         Item item=itemService.load(Integer.parseInt(id));
@@ -37,8 +41,10 @@ public class ItemDetailController {
 
     @RequestMapping("/insert")
     public String insert(){
-
+        repository.load(1);
+        repository.insert(orderItem);
         return "/shoppingCart";
     }
     
+
 }
