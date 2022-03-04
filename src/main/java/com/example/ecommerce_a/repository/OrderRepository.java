@@ -89,5 +89,11 @@ public class OrderRepository {
 		System.out.println(orderItemList);
 		return orderItemList;
 	}
+	
+	public void deleteCart(int userId) {
+		String deleteSql = "DELETE from orders where user_id = :userId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+		template.update(deleteSql, param);
+	}
 
 }

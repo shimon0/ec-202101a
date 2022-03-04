@@ -19,7 +19,7 @@ public class CartController {
 	private CartService cartService;
 	
 	@RequestMapping("")
-	public String findOrderItemList(Integer userid,Model model){
+	public String findOrderItemList(Model model){
 		int userId=1;
 		HashMap<Integer,Integer>totalMap = new HashMap<>();
 		List<OrderItem>orderItemList = cartService.findOrderItemList(userId);
@@ -29,6 +29,10 @@ public class CartController {
 		Order order	= new Order();
 		order.setOrderItemList(orderItemList);
 		
+		if(orderItemList.size()==0) {
+			orderItemList=null;
+			model.addAttribute("emptyMessage","カートに商品がありません");
+		}
 		model.addAttribute("orderItemList",orderItemList);
 		model.addAttribute("totalMap",totalMap); 
 		model.addAttribute("taxTotal",order.getTax()); 
@@ -36,4 +40,14 @@ public class CartController {
 		
 		return "cart_list.html";
 	}
+	
+	@RequestMapping("/delete")
+	public String deleteCart(String deleteId,Model model){
+		System.out.println(deleteId);
+		int userId = Integer.parseInt(deleteId);
+		System.out.println(userId);
+		cartService.deleteCart(userId);
+		return "redirect:/shoppingCart";
+	}
+	
 }

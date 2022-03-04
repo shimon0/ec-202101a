@@ -17,4 +17,8 @@ public class CartService {
 		return repository.findOrderItemList(userId);
 	}
 	
+	public void deleteCart(Integer deleteId){
+		repository.deleteCart(deleteId);
+	}
+	
 }
