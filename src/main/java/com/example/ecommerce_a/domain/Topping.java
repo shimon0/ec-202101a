@@ -29,6 +29,11 @@ public class Topping {
 	public void setPriceL(Integer priceL) {
 		this.priceL = priceL;
 	}
+	@Override
+	public String toString() {
+		return "Topping [id=" + id + ", name=" + name + ", priceM=" + priceM + ", priceL=" + priceL + "]";
+	}
+	
 	
 	
 }

@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_a.domain.Item;
@@ -37,7 +39,7 @@ public class OrderRepository {
 	        OrderItem orderItem = new OrderItem();
 	        orderItem.setId(nowIdNum);
 	        orderItem.setQuantity(rs.getInt("ori_quantity"));
-	        char[] c = rs.getString("ori.quantity").toCharArray();
+	        char[] c = rs.getString("ori_size").toCharArray();
 	        orderItem.setSize(c[0]);
 	        
 	        Item item = new Item();
@@ -78,10 +80,14 @@ public class OrderRepository {
 				   + "FROM orders ord "
 				   + "JOIN order_items ori ON ord.id=ori.order_id "
 				   + "JOIN items itm ON ori.item_id = itm.id "
-				   + "JOIN order_toppings ort ON ord.id = ort.order_item_id "
+				   + "JOIN order_toppings ort ON ori.id = ort.order_item_id "
 				   + "JOIN toppings top ON ort.topping_id = top.id "
-				   + "WHERE ord.id=1 AND ord.status=0;";
-		List<OrderItem> orderItemList = template.query(sql, ORDER_ITEM_RESULTSET);
-		return orderItemList;	
+				   + "WHERE ord.user_id=1 AND ord.status=0;";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+		List<OrderItem> orderItemList = template.query(sql,param,ORDER_ITEM_RESULTSET);
+		System.out.println(orderItemList);
+		return orderItemList;
 	}
+
 }

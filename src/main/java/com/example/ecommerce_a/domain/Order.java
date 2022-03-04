@@ -131,5 +131,22 @@ public class Order {
 	public void setOrderItemList(List<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
 	}
-
+	
+	public int getTax() {
+		int taxTotal=0;
+		for(OrderItem orderItem :orderItemList) {
+			taxTotal+=orderItem.getSubTotal();
+		}
+		taxTotal*=0.1;
+		return taxTotal;
+		}
+	
+	public int getCalcTotalPrice() {
+		int total=0;
+		for(OrderItem orderItem :orderItemList) {
+			total+=orderItem.getSubTotal();
+		}
+		total*=1.1;
+		return total;
+		}
 }
