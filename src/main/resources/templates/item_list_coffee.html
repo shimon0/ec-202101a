@@ -125,7 +125,7 @@
             <tbody th:each="item:${itemList}">
               <tr>
                 <th>
-                  <a href="item_detail.html">
+                  <a href="item_detail.html" th:href="@{/itemDetail?id=}+${item.id}">
                     <img
                       src="../static/img_coffee/1.jpg"
                       th:src="@{/img_coffee/}+${item.imagePath}"
