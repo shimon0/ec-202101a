@@ -29,6 +29,11 @@ public class OrderTopping {
 	public void setTopping(Topping topping) {
 		this.topping = topping;
 	}
+	@Override
+	public String toString() {
+		return "OrderTopping [id=" + id + ", toppingId=" + toppingId + ", orderItemId=" + orderItemId + ", topping="
+				+ topping + "]";
+	}
 	
 	
 }
