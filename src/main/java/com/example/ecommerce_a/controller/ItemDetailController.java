@@ -57,6 +57,7 @@ public class ItemDetailController {
     	Integer preId =  (Integer) session.getAttribute("preId");
     	int orderId = 0;
     	int orderItemId = 0;
+    	
     	if(userId!=null) {
     		OrderItem orderItem = itemDetailService.load(userId);
     		if(orderItem!=null) {

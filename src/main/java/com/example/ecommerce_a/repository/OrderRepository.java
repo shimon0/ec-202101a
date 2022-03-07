@@ -95,5 +95,18 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id",itemId);
 		template.update(deleteSql, param);
 	}
+	
+	public void deleteOrder(int userId) {
+		String deleteSql = "DELETE from orders where user_id = :userId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+		template.update(deleteSql, param);
+	}
+	
+	public void updateOrder(int userId,int preId) {
+		String updateSql = "UPDATE orders SET user_id=:userId WHERE user_id=preId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("preId",userId);
+		template.update(updateSql, param);
+	}
+	
 
 }

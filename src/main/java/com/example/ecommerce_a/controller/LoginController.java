@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.ecommerce_a.domain.OrderItem;
 import com.example.ecommerce_a.domain.User;
 import com.example.ecommerce_a.form.LoginForm;
+import com.example.ecommerce_a.service.LoginService;
 import com.example.ecommerce_a.service.UserService;
 
 /**
@@ -26,6 +29,9 @@ public class LoginController {
 	
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private LoginService loginService;
 	/**
 	 * @return LoginFormをインスタンス化
 	 */
@@ -50,6 +56,19 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userId", user.getId());
+		
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer preId =  (Integer) session.getAttribute("preId");
+		
+		OrderItem orderItem = loginService.load(userId);
+		if(preId!=null) {
+			if(orderItem!=null) {
+				loginService.deleteOrder(preId);
+			}else if(orderItem==null) {
+				loginService.updateOrder(userId,preId);
+			}
+		}
+		session.removeAttribute("preId");
 		return "forward:/shoppingList";
 		
 	}
