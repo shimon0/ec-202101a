@@ -25,13 +25,12 @@ public class UserService {
 	/**
 	 * メールアドレスからユーザー情報を取得します。
 	 * 
-	 * @param email
+	 * @param email メールアドレス
 	 * @return ユーザー情報
 	 */
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	
 
 	/**
 	 * @param email　メールアドレス
