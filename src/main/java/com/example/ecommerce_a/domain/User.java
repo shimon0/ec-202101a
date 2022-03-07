@@ -1,12 +1,25 @@
 package com.example.ecommerce_a.domain;
 
+/**
+ * ユーザー情報を表すドメイン
+ * 
+ * @author kashimamiyu
+ *
+ */
 public class User {
+	/**id(主キー)*/
 	private Integer id;
+	/**名前*/
 	private String name;
+	/**メールアドレス*/
 	private String email;
+	/**パスワード*/
 	private String password;
+	/**郵便番号*/
 	private String zipcode;
+	/**住所*/
 	private String address;
+	/**電話番号*/
 	private String telephone;
 	public Integer getId() {
 		return id;
