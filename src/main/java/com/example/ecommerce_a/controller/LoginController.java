@@ -50,7 +50,7 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userId", user.getId());
-		return "item_list_coffee";
+		return "forward:/shoppingList";
 		
 	}
 }
