@@ -110,6 +110,7 @@ public class OrderConfirmController {
 		System.out.println(duration.toHours());
 		if (duration.toHours() < 3) {
 			result.rejectValue("deliveryHour", null, "今から3時間後の日時をご入力ください");
+			return index(model);
 		} else if (duration.toHours() >= 3) {
 			order.setDeliveryTime(delTime);
 		}
