@@ -65,14 +65,15 @@ public class ItemDetailController {
     	        char[] c = form.getSize().toCharArray();
     	        orderItem.setSize(c[0]);
     	        orderItemId = itemDetailService.insertOrderItem(orderItem);
-    		}else if(orderItem==null){
+    		}else{
     			orderId = itemDetailService.insertOrder(userId);
-    			orderItem.setOrderId(orderId);
-    			orderItem.setItemId(form.getItemId());
-    	        orderItem.setQuantity(form.getQuantity());
+    			OrderItem orderItem2 = new OrderItem();
+    			orderItem2.setOrderId(orderId);
+    			orderItem2.setItemId(form.getItemId());
+    	        orderItem2.setQuantity(form.getQuantity());
     	        char[] c = form.getSize().toCharArray();
-    	        orderItem.setSize(c[0]);
-    	        orderItemId = itemDetailService.insertOrderItem(orderItem);
+    	        orderItem2.setSize(c[0]);
+    	        orderItemId = itemDetailService.insertOrderItem(orderItem2);
     		}
     	}else if(userId==null) {
     		if(preId!=null) {
@@ -98,6 +99,9 @@ public class ItemDetailController {
     			}
     	}
     	
+    	if(form.getOrderToppings()==null) {
+    		return "forward:/shoppingCart";
+    	}
         for(String topping : form.getOrderToppings()) {
         	Integer toppingId = Integer.parseInt(topping);
         	OrderTopping orderTopping = new OrderTopping();
