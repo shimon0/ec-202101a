@@ -19,8 +19,14 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
-
+	/**
+	 * ユーザー情報を登録します
+	 * 
+	 * @param user
+	 */
+	public void insert(User user) {
+		userRepository.insert(user);
+	}
 	
 	/**
 	 * メールアドレスからユーザー情報を取得します。
@@ -31,7 +37,7 @@ public class UserService {
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-
+	
 	/**
 	 * @param email　メールアドレス
 	 * @param password パスワード
@@ -42,4 +48,3 @@ public class UserService {
 		return user;
 	}
 }
-
