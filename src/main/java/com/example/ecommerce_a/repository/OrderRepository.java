@@ -80,9 +80,9 @@ public class OrderRepository {
 				   + "FROM orders ord "
 				   + "JOIN order_items ori ON ord.id=ori.order_id "
 				   + "JOIN items itm ON ori.item_id = itm.id "
-				   + "JOIN order_toppings ort ON ori.id = ort.order_item_id "
-				   + "JOIN toppings top ON ort.topping_id = top.id "
-				   + "WHERE ord.user_id=1 AND ord.status=0;";
+				   + "LEFT OUTER JOIN order_toppings ort ON ori.id = ort.order_item_id "
+				   + "LEFT OUTER JOIN toppings top ON ort.topping_id = top.id "
+				   + "WHERE ord.user_id=:userId AND ord.status=0;";
 
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		List<OrderItem> orderItemList = template.query(sql,param,ORDER_ITEM_RESULTSET);
@@ -90,9 +90,9 @@ public class OrderRepository {
 		return orderItemList;
 	}
 	
-	public void deleteCart(int userId) {
-		String deleteSql = "DELETE from orders where user_id = :userId;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+	public void deleteCart(int itemId) {
+		String deleteSql = "DELETE from order_items where id = :id;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",itemId);
 		template.update(deleteSql, param);
 	}
 

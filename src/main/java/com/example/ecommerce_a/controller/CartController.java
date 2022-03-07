@@ -3,6 +3,8 @@ package com.example.ecommerce_a.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +19,22 @@ import com.example.ecommerce_a.service.CartService;
 public class CartController {
 	@Autowired
 	private CartService cartService;
+	@Autowired
+    private HttpSession session;
 	
 	@RequestMapping("")
 	public String findOrderItemList(Model model){
-		int userId=1;
+		Integer userId = (Integer) session.getAttribute("userId");
+    	Integer preId =  (Integer) session.getAttribute("preId");
+    	List<OrderItem>orderItemList=null;
 		HashMap<Integer,Integer>totalMap = new HashMap<>();
-		List<OrderItem>orderItemList = cartService.findOrderItemList(userId);
+		if(userId==null) {
+			orderItemList = cartService.findOrderItemList(preId);
+		}else if(preId==null) {
+			orderItemList = cartService.findOrderItemList(userId);
+		}
+		
+		System.out.println(orderItemList);
 		for(OrderItem orderItem : orderItemList) {
 			totalMap.put(orderItem.getId(),orderItem.getSubTotal());
 		}
@@ -43,10 +55,8 @@ public class CartController {
 	
 	@RequestMapping("/delete")
 	public String deleteCart(String deleteId,Model model){
-		System.out.println(deleteId);
-		int userId = Integer.parseInt(deleteId);
-		System.out.println(userId);
-		cartService.deleteCart(userId);
+		int itemId = Integer.parseInt(deleteId);
+		cartService.deleteCart(itemId);
 		return "redirect:/shoppingCart";
 	}
 	
