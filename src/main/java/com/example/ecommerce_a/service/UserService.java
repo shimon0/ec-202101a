@@ -19,6 +19,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	
 	/**
 	 * ユーザー情報を登録します
 	 * 
