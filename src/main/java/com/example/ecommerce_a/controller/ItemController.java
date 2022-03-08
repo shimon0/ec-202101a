@@ -23,6 +23,8 @@ public class ItemController {
     //    System.out.println(itemList);
         return "item_list_coffee";
     }
+    
+    
     @RequestMapping("/searchWord")
     public String findByLikeWord(String searchWord,Model model){
         List<Item> itemList=service.findByLikeName(searchWord);

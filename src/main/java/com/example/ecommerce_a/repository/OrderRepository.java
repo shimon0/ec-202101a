@@ -31,6 +31,7 @@ public class OrderRepository {
 	    //clabsテーブルは結合した際に複数行にわたり同じデータが出力される可能性があるため、前のClabテーブルのIDを保持するための変数を宣言
 	    int beforeIdNum = 0;
 
+
 	    //ResultSetオブジェクトに格納された複数のデータをList<Clab>変数に格納していく
 	    while(rs.next()) {
 	      //現在検索しているClabテーブルのIDを格納するための変数を宣言
@@ -55,6 +56,8 @@ public class OrderRepository {
 	        orderItem.setOrderToppingList(toppingList);
 	        orderItemList.add(orderItem);
 	      }
+	      
+	      
 
 	      //ClabにMemberがいない場合はMemberオブジェクトを作成しないようにする
 	      if (rs.getInt("top_id") != 0) {
@@ -68,6 +71,7 @@ public class OrderRepository {
 	        //memberをclabオブジェクト内にセットされているmemberListに直接追加する
 	        toppingList.add(orderTopping);
 	      }
+
 
 	      //現在検索しているClabテーブルのIDを前のClabテーブルのIDを入れるbeforeIdNumに代入する
 	      beforeIdNum = nowIdNum;
@@ -116,5 +120,21 @@ public class OrderRepository {
 		template.update(updateSql, param);
 	}
 	
+
+	public List<OrderItem> findOrderHistory(int userId){
+		String sql = "SELECT ori.id ori_id,ori.quantity ori_quantity,ori.size ori_size,itm.name itm_name,itm.price_m itm_price_m,itm.price_l itm_price_l,itm.image_path itm_image_path,top.name top_name,top.price_m top_price_m,top.price_l top_price_l,top.id top_id "
+				   + "FROM orders ord "
+				   + "JOIN order_items ori ON ord.id=ori.order_id "
+				   + "JOIN items itm ON ori.item_id = itm.id "
+				   + "LEFT OUTER JOIN order_toppings ort ON ori.id = ort.order_item_id "
+				   + "LEFT OUTER JOIN toppings top ON ort.topping_id = top.id "
+				   + "WHERE ord.user_id=:userId AND (ord.status=1 OR ord.status=2);";
+
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+		List<OrderItem> orderItemList = template.query(sql,param,ORDER_ITEM_RESULTSET);
+		System.out.println(orderItemList);
+		return orderItemList;
+	}
+
 
 }
