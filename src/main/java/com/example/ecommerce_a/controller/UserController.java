@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.ecommerce_a.domain.User;
+import com.example.ecommerce_a.domain.model.GroupOrder;
 import com.example.ecommerce_a.form.UserForm;
 import com.example.ecommerce_a.service.UserService;
 
@@ -47,7 +48,7 @@ public class UserController {
 	 * @return ログイン画面へリダイレクト
 	 */
 	@RequestMapping("/insert")
-	public String insert (@Validated UserForm form
+	public String insert (@Validated(GroupOrder.class) UserForm form
 			              ,BindingResult result
 			              ) {
 		
@@ -57,7 +58,7 @@ public class UserController {
 			result.rejectValue("email", null, "このメールアドレスは既に登録されています");
 		}
 		
-		if(!form.getPassword().equals(form.getConfirmpassword())){
+		if(!form.getConfirmpassword().isEmpty() && !form.getPassword().isEmpty() && !form.getPassword().equals(form.getConfirmpassword())){
 			result.rejectValue("confirmpassword", "", "パスワードが一致していません");
 		}
 		
