@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce_a.domain.Order;
 import com.example.ecommerce_a.domain.OrderItem;
+import com.example.ecommerce_a.domain.model.GroupOrder;
 import com.example.ecommerce_a.form.OrderConfirmForm;
 import com.example.ecommerce_a.service.CartService;
 import com.example.ecommerce_a.service.OrderConfirmService;
@@ -67,7 +68,7 @@ public class OrderConfirmController {
 	}
 
 	@RequestMapping("/register")
-	public String register(@Validated OrderConfirmForm form, BindingResult result, Model model) throws ParseException {
+	public String register(@Validated(GroupOrder.class) OrderConfirmForm form, BindingResult result, Model model) throws ParseException {
 		if (result.hasErrors()) {
 			return index(model);
 		}
