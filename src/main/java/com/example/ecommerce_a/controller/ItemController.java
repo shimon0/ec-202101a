@@ -2,8 +2,6 @@ package com.example.ecommerce_a.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +15,6 @@ import com.example.ecommerce_a.service.ItemService;
 public class ItemController {
     @Autowired
     private ItemService service;
-
-    @Autowired
-    private HttpSession session;
 
     @RequestMapping("")
     public String index(Model model){
