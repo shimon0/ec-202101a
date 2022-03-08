@@ -58,6 +58,11 @@ public class LoginController {
 		session.setAttribute("userId", user.getId());
 		session.setAttribute("userName", user.getName());
 		session.setAttribute("userEmail", user.getEmail());
+		session.setAttribute("user", user);
+		String str = String.valueOf(user.getZipcode());
+		System.out.println(user);
+		session.setAttribute("userZipcode", str);
+		
 		
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer preId =  (Integer) session.getAttribute("preId");

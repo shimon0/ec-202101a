@@ -44,6 +44,13 @@ public class ItemRepository {
 		return itemList;
 	}
 	
+	public List<Item> findAllPriceL(){
+		String sql="SELECT id,name,price_m,price_l,image_path,description FROM items ORDER BY  price_m  ASC ;";
+		List<Item> itemList=template.query(sql, ITEM_ROW_MAPPER);
+		
+		return itemList;
+	}
+	
 	/**
 	 * 商品の曖昧検索を行う
 	 * @param searchWord

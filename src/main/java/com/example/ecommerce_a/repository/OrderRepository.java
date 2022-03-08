@@ -56,6 +56,8 @@ public class OrderRepository {
 	        orderItem.setOrderToppingList(toppingList);
 	        orderItemList.add(orderItem);
 	      }
+	      
+	      
 
 	      //ClabにMemberがいない場合はMemberオブジェクトを作成しないようにする
 	      if (rs.getInt("top_id") != 0) {
