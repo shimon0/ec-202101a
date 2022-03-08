@@ -12,6 +12,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,12 +58,16 @@ public class OrderConfirmController {
 		model.addAttribute("totalMap", totalMap);
 		model.addAttribute("taxTotal", order.getTax());
 		model.addAttribute("CalcTotalPrice", order.getCalcTotalPrice());
+		
 
 		return "order_confirm.html";
 	}
 
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private MailSender mailSender;
 
 	@ModelAttribute
 	private OrderConfirmForm setOrderConfirmForm() {
@@ -117,8 +124,23 @@ public class OrderConfirmController {
 		}
 		order.setPaymentMethod(Integer.parseInt(form.getPaymentMethod()));
 		System.out.println(order);
+		
+		SimpleMailMessage msg = new SimpleMailMessage();
+
+        try {
+			msg.setFrom("coffeeShopMaster2022@mail.com");
+			msg.setTo((String)session.getAttribute("userEmail"));
+			msg.setSubject("らくらくコーヒー注文受付完了");
+			msg.setText("注文が完了しました");
+
+			mailSender.send(msg);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		orderConfirmService.update(order);
+		
 		return "order_finished";
 
 	}
