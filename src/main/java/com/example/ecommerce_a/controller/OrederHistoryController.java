@@ -31,6 +31,8 @@ public class OrederHistoryController {
                 if(orderList.size()==0){
                     model.addAttribute("emptyMessage","カートに商品がありません");
                 }else if(orderList.size() !=0){
+                    Order order=orderList.get(0);
+                    System.out.println(order.getOrderDate());
                     model.addAttribute("orderHistory",orderList) ;
                 }
                 return "order_history";

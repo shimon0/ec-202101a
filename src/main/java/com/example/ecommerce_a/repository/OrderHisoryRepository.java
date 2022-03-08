@@ -36,10 +36,10 @@ public class OrderHisoryRepository {
 				// 現在検索しているClabテーブルのIDと前のClabテーブルのIDが違う場合は新たにClabオブジェクトを作成する
 				if (nowIdNum != beforeIdNum) {
 					Order order = new Order();
-					order.setStatus(rs.getInt("ord_order_date"));
-					order.setOrderDate(rs.getDate("ord_date"));
+					order.setStatus(rs.getInt("ord_status"));
+					order.setOrderDate(rs.getDate("ord_order_date"));
 					order.setId(rs.getInt("ord_id"));
-					order.setTotalPrice(rs.getInt("ord_price"));
+					order.setTotalPrice(rs.getInt("ord_total_price"));
 					// メンバーがいた際にClabオブジェクトのmemberListに格納するため空のArrayListをセットしておく
 					orderItemList = new ArrayList<OrderItem>();
 					order.setOrderItemList(orderItemList);

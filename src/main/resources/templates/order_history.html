@@ -48,7 +48,7 @@
             <p class="navbar-text navbar-right">
               <a href="cart_list.html" class="navbar-link">ショッピングカート</a
               >&nbsp;&nbsp;
-              <a href="order_history.html" class="navbar-link">注文履歴</a
+              <a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link">注文履歴</a
               >&nbsp;&nbsp;
               <a href="login.html" class="navbar-link">ログイン</a>&nbsp;&nbsp;
               <a th:href="@{/logout}" href="item_list_coffee.html" class="navbar-link">ログアウト</a>
@@ -74,17 +74,20 @@
         >
           <h3 class="text-center">注文履歴</h3>
           <div class="text-center" th:text="${emptyMessage}" style="color: red;"></div>
-          <div th:if="!${#lists.isEmpty(orderHisory)}">
-          <div th:each="orderHisory,staus : ${orderHisory}">
+          <div th:if="!${#lists.isEmpty(orderHistory)}">
+          <div th:each="orderHistory : ${orderHistory}">
             <table class="table table-striped item-list-table">
               <tbody>
                 <tr >
                   <th>
-                    <span th:text="${orderHisory.orderDate}" class="text-center">日付</span>
+                    注文日:&nbsp;&nbsp;
+                    <span th:text="${orderHistory.orderDate}" class="text-center">日付</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;合計金額:
+                    <span class="text-center" th:text="${orderHistory.totalPrice}">合計金額</span>円
                   </th>
-                  <th></th>
+                 <th></th>
                 </tr>
-                <tr th:each="orderItemList : ${orderHisory.orderItem}">
+                <tr th:each="orderItemList : ${orderHistory.orderItemList}">
                   <td>
                     <div class="center">
                       <img
@@ -103,7 +106,6 @@
                 <tr>
                   <th></th>
                   <th>
-                    <div class="text-center" th:text="${orderHisory.totalPrice}">合計金額</div>
                   </th>
                 </tr>
             </tbody>
