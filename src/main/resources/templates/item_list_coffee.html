@@ -52,7 +52,7 @@
               </th:block>
               <a href="cart_list.html" th:href="@{/shoppingCart}" class="navbar-link">ショッピングカート</a
               >&nbsp;&nbsp;
-              <a href="order_history.html" th:href="@{/orderPast}" class="navbar-link">注文履歴</a
+              <a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link">注文履歴</a
               >&nbsp;&nbsp;
               <th:block th:switch="true">
 				<a th:case="${session.userId} == null AND ${session.preId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>

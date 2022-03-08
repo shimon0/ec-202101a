@@ -149,4 +149,15 @@ public class Order {
 		total*=1.1;
 		return total;
 		}
+
+	@Override
+	public String toString() {
+		return "Order [deliveryTime=" + deliveryTime + ", destinationAddress=" + destinationAddress
+				+ ", destinationEmail=" + destinationEmail + ", destinationName=" + destinationName
+				+ ", destinationTel=" + destinationTel + ", destinationZipcode=" + destinationZipcode + ", id=" + id
+				+ ", orderDate=" + orderDate + ", orderItemList=" + orderItemList + ", paymentMethod=" + paymentMethod
+				+ ", status=" + status + ", totalPrice=" + totalPrice + ", user=" + user + ", userId=" + userId + "]";
+	}
+
+		
 }
