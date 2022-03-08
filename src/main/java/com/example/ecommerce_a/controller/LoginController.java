@@ -56,10 +56,10 @@ public class LoginController {
 			return toLogin();
 		}
 		session.setAttribute("userId", user.getId());
+		session.setAttribute("userName", user.getName());
 		
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer preId =  (Integer) session.getAttribute("preId");
-		
 		OrderItem orderItem = loginService.load(userId);
 		if(preId!=null) {
 			if(orderItem!=null) {
@@ -69,7 +69,7 @@ public class LoginController {
 			}
 		}
 		session.removeAttribute("preId");
-		return "forward:/shoppingList";
+		return "redirect:/shoppingList";
 		
 	}
 }

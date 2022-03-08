@@ -57,6 +57,11 @@ public class CartController {
 		model.addAttribute("taxTotal",order.getTax()); 
 		model.addAttribute("CalcTotalPrice",order.getCalcTotalPrice()); 
 		
+		return "forward:/shoppingCart/url";
+	}
+	
+	@RequestMapping("/url")
+	public String index(){
 		return "cart_list.html";
 	}
 	

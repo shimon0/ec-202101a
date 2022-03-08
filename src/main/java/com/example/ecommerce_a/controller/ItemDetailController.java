@@ -101,7 +101,7 @@ public class ItemDetailController {
     	}
     	
     	if(form.getOrderToppings()==null) {
-    		return "forward:/shoppingCart";
+    		return "redirect:/shoppingCart";
     	}
         for(String topping : form.getOrderToppings()) {
         	Integer toppingId = Integer.parseInt(topping);
@@ -110,7 +110,7 @@ public class ItemDetailController {
         	orderTopping.setToppingId(toppingId);
         	itemDetailService.insertTopping(orderTopping);
         	}
-        return "forward:/shoppingCart";
+        return "redirect:/shoppingCart";
     }
     
     
