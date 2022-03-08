@@ -57,6 +57,7 @@ public class LoginController {
 		}
 		session.setAttribute("userId", user.getId());
 		session.setAttribute("userName", user.getName());
+		session.setAttribute("userEmail", user.getEmail());
 		
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer preId =  (Integer) session.getAttribute("preId");
