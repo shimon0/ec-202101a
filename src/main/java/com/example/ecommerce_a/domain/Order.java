@@ -1,6 +1,6 @@
 package com.example.ecommerce_a.domain;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

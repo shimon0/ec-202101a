@@ -28,6 +28,13 @@ public class CartController {
     	Integer preId =  (Integer) session.getAttribute("preId");
     	List<OrderItem>orderItemList=null;
 		HashMap<Integer,Integer>totalMap = new HashMap<>();
+		
+		if(userId==null&&preId==null) {
+			orderItemList=null;
+			model.addAttribute("emptyMessage","カートに商品がありません");
+			return "cart_list.html";
+		}
+		
 		if(userId==null) {
 			orderItemList = cartService.findOrderItemList(preId);
 		}else if(preId==null) {
@@ -50,6 +57,11 @@ public class CartController {
 		model.addAttribute("taxTotal",order.getTax()); 
 		model.addAttribute("CalcTotalPrice",order.getCalcTotalPrice()); 
 		
+		return "forward:/shoppingCart/url";
+	}
+	
+	@RequestMapping("/url")
+	public String index(){
 		return "cart_list.html";
 	}
 	

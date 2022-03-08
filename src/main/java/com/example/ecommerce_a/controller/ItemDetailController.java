@@ -57,6 +57,7 @@ public class ItemDetailController {
     	Integer preId =  (Integer) session.getAttribute("preId");
     	int orderId = 0;
     	int orderItemId = 0;
+    	
     	if(userId!=null) {
     		OrderItem orderItem = itemDetailService.load(userId);
     		if(orderItem!=null) {
@@ -100,7 +101,7 @@ public class ItemDetailController {
     	}
     	
     	if(form.getOrderToppings()==null) {
-    		return "forward:/shoppingCart";
+    		return "redirect:/shoppingCart";
     	}
         for(String topping : form.getOrderToppings()) {
         	Integer toppingId = Integer.parseInt(topping);
@@ -109,7 +110,7 @@ public class ItemDetailController {
         	orderTopping.setToppingId(toppingId);
         	itemDetailService.insertTopping(orderTopping);
         	}
-        return "forward:/shoppingCart";
+        return "redirect:/shoppingCart";
     }
     
     
