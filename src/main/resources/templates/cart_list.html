@@ -46,12 +46,18 @@
             id="bs-example-navbar-collapse-1"
           >
             <p class="navbar-text navbar-right">
+              <th:block th:unless="${session.userId} == null">
+             	<span th:text="${session.userName + 'さん こんにちは！'}" style="font-weight:900;">山田さん</span>&nbsp;&nbsp;
+              </th:block>
 			  <a href="cart_list.html" th:href="@{/shoppingCart}" class="navbar-link">ショッピングカート</a
               >&nbsp;&nbsp;
               <a href="order_history.html" th:href="@{/orderPast}" class="navbar-link">注文履歴</a
               >&nbsp;&nbsp;
-              <a href="login.html" th:href="@{/login}" class="navbar-link">ログイン</a>&nbsp;&nbsp;
-              <a href="item_list_coffee.html" th:href="@{/logout}" class="navbar-link">ログアウト</a>
+              <th:block th:switch="true">
+				<a th:case="${session.userId} == null AND ${session.preId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
+				<a th:case="${session.userId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
+				<a th:case="${session.preId} == null" th:href="@{/logout}" class="navbar-link">ログアウト</a>
+			  </th:block>
             </p>
           </div>
           <!-- /.navbar-collapse -->
@@ -151,9 +157,9 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-offset-5 col-xs-3">
+        <div class="col-xs-offset-4 col-xs-4">
           <div class="form-group">
-            <form action="order_confirm.html">
+            <form th:action="@{/confirm}">
               <input
                 class="form-control btn btn-warning btn-block"
                 type="submit"

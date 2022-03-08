@@ -50,8 +50,11 @@
               >&nbsp;&nbsp;
               <a href="order_history.html" class="navbar-link">注文履歴</a
               >&nbsp;&nbsp;
-              <a href="login.html" class="navbar-link">ログイン</a>&nbsp;&nbsp;
-              <a th:href="@{/logout}" href="item_list_coffee.html" class="navbar-link">ログアウト</a>
+              <th:block th:switch="true">
+				<a th:case="${session.userId} == null AND ${session.preId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
+				<a th:case="${session.userId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
+				<a th:case="${session.preId} == null" th:href="@{/logout}" class="navbar-link">ログアウト</a>
+			  </th:block>
             </p>
           </div>
           <!-- /.navbar-collapse -->

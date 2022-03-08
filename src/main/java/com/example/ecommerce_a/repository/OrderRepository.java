@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_a.domain.Item;
+import com.example.ecommerce_a.domain.Order;
 import com.example.ecommerce_a.domain.OrderItem;
 import com.example.ecommerce_a.domain.OrderTopping;
 import com.example.ecommerce_a.domain.Topping;
@@ -95,5 +97,24 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id",itemId);
 		template.update(deleteSql, param);
 	}
+	
+	public void deleteOrder(int userId) {
+		String deleteSql = "DELETE from orders where user_id = :userId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
+		template.update(deleteSql, param);
+	}
+	
+	public void updateOrder(int userId,int preId) {
+		String updateSql = "UPDATE orders SET user_id=:userId WHERE user_id=:preId;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("preId",preId);
+		template.update(updateSql, param);
+	}
+	
+	public void destinationUpdate(Order order) {
+		String updateSql = "UPDATE orders SET status=:status, total_price=:totalPrice, order_date=:orderDate, destination_name=:destinationName, destination_email=:destinationEmail, destination_zipcode=:destinationZipcode, destination_address=:destinationAddress, destination_tel=:destinationTel, delivery_time=:deliveryTime, payment_method=:paymentMethod where user_id=:userId and status=0;";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		template.update(updateSql, param);
+	}
+	
 
 }
