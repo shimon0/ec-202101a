@@ -74,63 +74,38 @@
         >
           <h3 class="text-center">注文履歴</h3>
           <div class="text-center" th:text="${emptyMessage}" style="color: red;"></div>
-          <div th:if="!${#lists.isEmpty(orderItemList)}">
-          <div th:each="orderItemList : ${orderItemList}">
-          <table class="table table-striped item-list-table">
-            <tbody>
-              <tr>
-                <th>日付</th>
-                <th>
-                  <div class="text-center">商品名</div>
-                </th>
-                <th>
-                  <div class="text-center">サイズ、価格(税抜)、数量</div>
-                </th>
-                <th>
-                  <div class="text-center">トッピング、価格(税抜)</div>
-                </th>
-                <th>
-                  <div class="text-center">小計</div>
-                </th>
-              </tr>
-              <tr th:each="orderItem : ${orderItemList}">
-                <td><div class="text-center">2022/03/07</div></td>
-                <td>
-                  <div class="center">
-                    <img
-                      src="../static/img_coffee/1.jpg"
-                      th:src="@{/img_coffee/{imagePath}(imagePath=${orderItem.item.imagePath})}"
-                      class="img-responsive img-rounded item-img-center"
-                      width="100"
-                      height="300"
-                    /><br />
-                    <span th:text="${orderItem.item.name}" >じゃがバタ</span>
-                  </div>
-                </td>
-                <td>
-                  <span class="price" th:text="${orderItem.size}">L</span>&nbsp;&nbsp;
-                  <th:block th:switch="${orderItem.size}">
-                  <span th:case="M"><span class="price" th:text="${orderItem.item.priceM}">2,380</span>円&nbsp;&nbsp;</span>
-                  <span th:case="L"><span class="price" th:text="${orderItem.item.priceL}">3,160</span>円&nbsp;&nbsp;</span>
-                  </th:block>
-                  <span class="price" th:text="${orderItem.quantity}">1</span>個    
-                </td>
-                <td>
-                  <ul th:each="toppings : ${orderItem.orderToppingList}">
-                    <li>
-                   	 <span th:text="${toppings.topping.name}">シロップ</span>
-                     <th:block th:switch="${orderItem.size}">
-                 	 <span th:case="M"><span class="price" th:text="${toppings.topping.priceM}">200</span>円</span>
-                	 <span th:case="L"><span class="price" th:text="${toppings.topping.priceL}">300</span>円</span>
-                    </li>
-                  </ul>
-                </td>
-                <td>
-                  <div class="text-center" th:each="key:${orderItem.id}">
-                  <span th:text="${totalMap.get(key)}"></span>円</div>
-                </td>
-               
-              </tr>
+          <div th:if="!${#lists.isEmpty(orderHisory)}">
+          <div th:each="orderHisory,staus : ${orderHisory}">
+            <table class="table table-striped item-list-table">
+              <tbody>
+                <tr >
+                  <th>
+                    <span th:text="${orderHisory.orderDate}" class="text-center">日付</span>
+                  </th>
+                  <th></th>
+                </tr>
+                <tr th:each="orderItemList : ${orderHisory.orderItem}">
+                  <td>
+                    <div class="center">
+                      <img
+                        src="../static/img_coffee/1.jpg"
+                        th:src="@{/img_coffee/{imagePath}(imagePath=${orderItemList.item.imagePath})}"
+                        class="img-responsive img-rounded item-img-center"
+                        width="100"
+                        height="300"
+                      /><br />
+                    </div>
+                  </td>
+                  <td>
+                    <div th:text="${orderItemList.item.name}" >じゃがバタ</div>
+                  </td>           
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <div class="text-center" th:text="${orderHisory.totalPrice}">合計金額</div>
+                  </th>
+                </tr>
             </tbody>
           </table>
         </div>
