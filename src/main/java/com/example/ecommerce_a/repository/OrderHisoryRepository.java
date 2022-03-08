@@ -11,12 +11,13 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_a.domain.Item;
+import com.example.ecommerce_a.domain.Order;
 import com.example.ecommerce_a.domain.OrderItem;
 import com.example.ecommerce_a.domain.OrderTopping;
 import com.example.ecommerce_a.domain.Topping;
 
 @Repository
-public class OrderRepository {
+public class OrderPastRepository {
 	
 	  //ResultSetオブジェクトに格納された複数行分のデータをList<Clab>変数にセットしてreturnする
 	  private static final ResultSetExtractor<List<OrderItem>> ORDER_ITEM_RESULTSET = (rs) -> {
@@ -28,6 +29,8 @@ public class OrderRepository {
 
 	    //clabsテーブルは結合した際に複数行にわたり同じデータが出力される可能性があるため、前のClabテーブルのIDを保持するための変数を宣言
 	    int beforeIdNum = 0;
+
+		//日付格納用
 
 
 	    //ResultSetオブジェクトに格納された複数のデータをList<Clab>変数に格納していく
@@ -91,27 +94,35 @@ public class OrderRepository {
 		System.out.println(orderItemList);
 		return orderItemList;
 	}
+
+
+
+
+	  /**
+		   * 注文履歴で日付を参照処理
+		   * ROW_MAPPERに日付を格納
+		   */
+		  if(rs.getInt("order_date")!= 0){
+			Order order=new Order();
+
+		}
+
+
 	
-	public void deleteCart(int itemId) {
-		String deleteSql = "DELETE from order_items where id = :id;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id",itemId);
-		template.update(deleteSql, param);
-	}
+	public	List<OrderItem> findPastOrder(int userId){
+		String	sql="SELECT ord.delivery_time ord_delivery_time, ori.id ori_id,ori.quantity ori_quantity,ori.size ori_size,itm.name itm_name,itm.price_m itm_price_m,itm.price_l itm_price_l,itm.image_path itm_image_path,top.name top_name,top.price_m top_price_m,top.price_l top_price_l,top.id top_id "
+		+ "FROM orders ord "
+		+ "JOIN order_items ori ON ord.id=ori.order_id "
+		+ "JOIN items itm ON ori.item_id = itm.id "
+		+ "LEFT OUTER JOIN order_toppings ort ON ori.id = ort.order_item_id "
+		+ "LEFT OUTER JOIN toppings top ON ort.topping_id = top.id "
+		+ "WHERE ord.user_id=:userId AND (ord.status=1 OR ord.status2);";
 
-	public List<OrderItem> findOrderHistory(int userId){
-		String sql = "SELECT ori.id ori_id,ori.quantity ori_quantity,ori.size ori_size,itm.name itm_name,itm.price_m itm_price_m,itm.price_l itm_price_l,itm.image_path itm_image_path,top.name top_name,top.price_m top_price_m,top.price_l top_price_l,top.id top_id "
-				   + "FROM orders ord "
-				   + "JOIN order_items ori ON ord.id=ori.order_id "
-				   + "JOIN items itm ON ori.item_id = itm.id "
-				   + "LEFT OUTER JOIN order_toppings ort ON ori.id = ort.order_item_id "
-				   + "LEFT OUTER JOIN toppings top ON ort.topping_id = top.id "
-				   + "WHERE ord.user_id=:userId AND (ord.status=1 OR ord.status=2);";
-
+		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		List<OrderItem> orderItemList = template.query(sql,param,ORDER_ITEM_RESULTSET);
 		System.out.println(orderItemList);
 		return orderItemList;
 	}
-
 
 }

@@ -20,5 +20,8 @@ public class CartService {
 	public void deleteCart(Integer deleteId){
 		repository.deleteCart(deleteId);
 	}
+	public	List<OrderItem>	findOrderHistory(int userId){
+		return	repository.findOrderHistory(userId);
+	}
 	
 }
