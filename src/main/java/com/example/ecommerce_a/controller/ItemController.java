@@ -46,7 +46,7 @@ public class ItemController {
             if(itemList.size()==0){
                 String nullMessage="該当する商品がありません";
                 model.addAttribute("nullMessage", nullMessage);
-                return index(select,model);
+                return index(model);
             }else{
                 System.out.println("low");
                 model.addAttribute("itemList", itemList);
@@ -58,7 +58,7 @@ public class ItemController {
             if(itemListD.size()==0){
                 String nullMessage="該当する商品がありません";
                 model.addAttribute("nullMessage", nullMessage);
-                return index(select,model);
+                return index(model);
             }else{
                 System.out.println("high");
                 model.addAttribute("itemList", itemListD);
