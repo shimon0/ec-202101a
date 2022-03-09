@@ -29,7 +29,7 @@ public class OrederHistoryController {
             }else{
                 List<Order> orderList=service.findOrderHistory(userId);
                 if(orderList.size()==0){
-                    model.addAttribute("emptyMessage","カートに商品がありません");
+                    model.addAttribute("emptyMessage","注文履歴がありません");
                 }else if(orderList.size() !=0){
                     model.addAttribute("orderHistory",orderList) ;
                 }

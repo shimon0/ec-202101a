@@ -42,6 +42,7 @@ public class ItemController {
     @RequestMapping("/searchWord")
     public String findByLikeWord(String searchWord,String select,Model model){
     	if(select==null) {
+    		model.addAttribute("searchWord",searchWord);
     		return "forward:/shoppingList";
     	}
         if(select.equals("low")){
@@ -49,10 +50,12 @@ public class ItemController {
             if(itemList.size()==0){
                 String nullMessage="該当する商品がありません";
                 model.addAttribute("nullMessage", nullMessage);
+        		model.addAttribute("searchWord",searchWord);
                 return index(model);
             }else{
                 System.out.println("low");
                 model.addAttribute("itemList", itemList);
+        		model.addAttribute("searchWord",searchWord);
                 return "item_list_coffee";
  
             }
@@ -61,10 +64,12 @@ public class ItemController {
             if(itemListD.size()==0){
                 String nullMessage="該当する商品がありません";
                 model.addAttribute("nullMessage", nullMessage);
+        		model.addAttribute("searchWord",searchWord);
                 return index(model);
             }else{
                 System.out.println("high");
                 model.addAttribute("itemList", itemListD);
+        		model.addAttribute("searchWord",searchWord);
                 return "item_list_coffee";
             }
         }else{
