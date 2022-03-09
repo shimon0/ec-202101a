@@ -46,6 +46,7 @@
             class="collapse navbar-collapse"
             id="bs-example-navbar-collapse-1"
           >
+          <input type ="hidden" id="js_userId" th:value="${session.userId}" />
             <p class="navbar-text navbar-right">
               <th:block th:unless="${session.userId} == null">
              	<span th:text="${session.userName + 'さん こんにちは！'}" style="font-weight:900;">山田さん</span>&nbsp;&nbsp;
@@ -106,12 +107,18 @@
                   <button type="reset" value="クリア" class="btn btn-default">
                     クリア
                   </button>
+                  <select name="select">
+                    <option value="low" th:value="low">価格が安い順</option>
+                    <option value="high" th:value="high">価格が高い順</option>
+                  </select>
+ 
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+
 
 
 
@@ -132,8 +139,8 @@
             col-xs-12
           "
         >
-          <table class="table table-striped item-list-table">
-            <tbody >
+          <table class="table table-striped item-list-table" >
+            <tbody class="itemTable" >
               <div th:each="item,status:${itemList}">
                   <div th:if="${status.index % 3==0}">
                 <tr></div>
@@ -163,9 +170,11 @@
     </div>
     <!-- end container -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="http://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></script>
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script th:src="@{/js/itemAutoComplete.js}"></script>
+    <script th:src="@{/js/paginathing.js}"></script>
+    <script th:src="@{/js/paging.js}"></script>
   </body>
 </html>

@@ -49,6 +49,8 @@
               <th:block th:unless="${session.userId} == null">
              	<span th:text="${session.userName + 'さん こんにちは！'}" style="font-weight:900;">山田さん</span>&nbsp;&nbsp;
               </th:block>
+              <a href="cart_list.html" th:href="@{/userPage}" class="navbar-link">マイページ</a
+              >&nbsp;&nbsp;
 			  <a href="cart_list.html" th:href="@{/shoppingCart}" class="navbar-link">ショッピングカート</a
               >&nbsp;&nbsp;
               <a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link">注文履歴</a

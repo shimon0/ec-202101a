@@ -45,6 +45,10 @@ public class LoginController {
 	 */
 	@RequestMapping("")
 	public String toLogin() {
+		Integer userId = (Integer) session.getAttribute("userId");
+		if(userId!=null){
+            return  "redirect:/shoppingList";
+		}
 		return "login";
 	}
 	

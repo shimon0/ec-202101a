@@ -1,11 +1,14 @@
 package com.example.ecommerce_a.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.example.ecommerce_a.domain.User;
 import com.example.ecommerce_a.domain.model.GroupOrder;
 import com.example.ecommerce_a.form.UserForm;
@@ -24,6 +27,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	/**
 	 * @return UserFormをインスタンス化
 	 */
@@ -39,6 +45,10 @@ public class UserController {
 	 */
 	@RequestMapping("")
 	public String toRegister() {
+		Integer userId = (Integer) session.getAttribute("userId");
+		if(userId!=null){
+            return  "redirect:/shoppingList";
+		}
 		return "register_user";
 	}
 	

@@ -1,5 +1,5 @@
 package com.example.ecommerce_a.controller;
-
+ 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,31 +9,65 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce_a.domain.Item;
 import com.example.ecommerce_a.service.ItemService;
-
+ 
 @Controller
 @RequestMapping("/shoppingList")
 public class ItemController {
     @Autowired
     private ItemService service;
-
+ 
+    //スタート
     @RequestMapping("")
     public String index(Model model){
-        List<Item> itemList=service.findAll();
+            List<Item> itemList=service.findAll();
         model.addAttribute("itemList", itemList);
+            model.addAttribute("itemList", itemList);
     //    System.out.println(itemList);
         return "item_list_coffee";
     }
-    
-    
-    @RequestMapping("/searchWord")
-    public String findByLikeWord(String searchWord,Model model){
-        List<Item> itemList=service.findByLikeName(searchWord);
-        if(itemList.size()==0){
-            String nullMessage="該当する商品がありません";
-            model.addAttribute("nullMessage", nullMessage);
-            return index(model);
-        }
+ 
+    @RequestMapping("/orderBy")
+    public String index(String select,Model model){
+        if(select.equals("low")){
+            List<Item> itemList=service.findAll();
         model.addAttribute("itemList", itemList);
+        }else if(select.equals("high")){
+            List<Item> itemList=service.findAllDesc();
+            model.addAttribute("itemList", itemList);
+        }
+    //    System.out.println(itemList);
         return "item_list_coffee";
+    }
+ 
+    @RequestMapping("/searchWord")
+    public String findByLikeWord(String searchWord,String select,Model model){
+        if(select.equals("low")){
+            List<Item> itemList=service.findByLikeName(searchWord);
+            if(itemList.size()==0){
+                String nullMessage="該当する商品がありません";
+                model.addAttribute("nullMessage", nullMessage);
+                return index(select,model);
+            }else{
+                System.out.println("low");
+                model.addAttribute("itemList", itemList);
+                return "item_list_coffee";
+ 
+            }
+        }else if(select.equals("high")){
+            List<Item> itemListD=service.findByLikeNameDesc(searchWord);
+            if(itemListD.size()==0){
+                String nullMessage="該当する商品がありません";
+                model.addAttribute("nullMessage", nullMessage);
+                return index(select,model);
+            }else{
+                System.out.println("high");
+                model.addAttribute("itemList", itemListD);
+                return "item_list_coffee";
+            }
+        }else{
+            return "forward:/shoppingList";
+        }
+       
+       
     }
 }
