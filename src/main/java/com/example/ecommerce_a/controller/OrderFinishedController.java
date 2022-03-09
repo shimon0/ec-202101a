@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderFinishedController {
 	@Autowired
 	private HttpSession session;
-	
+
 	@RequestMapping("")
 	public String index() {
 		Integer userId = (Integer) session.getAttribute("userId");
+		Integer finishedId = (Integer) session.getAttribute("finished");
 		if (userId == null) {
 			return "forward:/login";
+		} else if (finishedId == null) {
+			return "forward:/confirm";
 		}
+		session.removeAttribute("finished");
 		return "order_finished";
 	}
 }

@@ -144,6 +144,7 @@ public class OrderConfirmController {
 		}
 
 		orderConfirmService.update(order);
+		session.setAttribute("finished", 1);
 		
 		return "forward:/finished";
 
