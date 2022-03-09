@@ -47,7 +47,11 @@ public class OrderConfirmController {
 		List<OrderItem> orderItemList = null;
 		HashMap<Integer, Integer> totalMap = new HashMap<>();
 		orderItemList = cartService.findOrderItemList(userId);
-		System.out.println(orderItemList);
+		if(orderItemList.size()==0) {
+			return "forward:/shoppingCart";
+		}
+
+		
 		for (OrderItem orderItem : orderItemList) {
 			totalMap.put(orderItem.getId(), orderItem.getSubTotal());
 		}
@@ -140,8 +144,9 @@ public class OrderConfirmController {
 		}
 
 		orderConfirmService.update(order);
+		session.setAttribute("finished", 1);
 		
-		return "order_finished";
+		return "forward:/finished";
 
 	}
 }
