@@ -86,7 +86,6 @@ public class OrderHisoryRepository {
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId);
 		List<Order> orderList = template.query(sql,param,ORDER_ITEM_RESULTSET);
-		System.out.println(orderList);
 		return orderList;
 	}
 

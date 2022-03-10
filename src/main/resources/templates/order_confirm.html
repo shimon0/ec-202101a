@@ -306,7 +306,9 @@
 										<div class="row">
 											<div class="col-sm-12">
 												<label class="radio-inline"> <input type="radio"
-													name="paymentMethod" value="2"> クレジットカード
+													name="paymentMethod" value="2"> クレジットカード<br>
+													<input id="card_num" type="text" value="" placeholder="カード番号 (半角数字)" size = "24" maxlength = "16" />
+													<input type="button" value="判定" onclick="ShowCheckResult()">
 												</label><br /> <br />
 											</div>
 										</div>
@@ -334,6 +336,7 @@
 		<script src="../static/js/bootstrap.min.js"></script>
 		<script th:src="@{/js/auto_hyphen.js}"></script>
 		<script th:src="@{/js/alert.js}"></script>
+		<script th:src="@{/js/credit.js}"></script>
 		
 </body>
 </html>
