@@ -86,5 +86,13 @@ public class UserRepository {
 		}
 		return userList.get(0);
 	}
+	
+	public void updatePassword(String email, String password) {
+		String newPassword = passwordEncoder.encode(password);
+		String updateSql="UPDATE users SET password=:password WHERE email=:email";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password", newPassword);
+		template.update(updateSql, param);
+		System.out.println(newPassword);
+	}
 
 }
