@@ -48,4 +48,8 @@ public class UserService {
 		User user = userRepository.findByEmailAndPassword(email, password);
 		return user;
 	}
+	
+	public void updatePassword(String email, String password) {
+		userRepository.updatePassword(email, password);
+	}
 }
