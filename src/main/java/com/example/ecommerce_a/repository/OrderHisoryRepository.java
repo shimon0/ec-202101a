@@ -58,6 +58,7 @@ public class OrderHisoryRepository {
 					item.setPriceM(rs.getInt("itm_price_m"));
 					item.setPriceL(rs.getInt("itm_price_l"));
 					item.setImagePath(rs.getString("itm_image_path"));
+					item.setId(rs.getInt("itm_id"));
 					orderItem.setItem(item);
 					// メンバーがいた際にClabオブジェクトのmemberListに格納するため空のArrayListをセットしておく
 					orderItemList.add(orderItem);
@@ -76,7 +77,7 @@ public class OrderHisoryRepository {
 	
 	public	List<Order> findOrderHistory(int userId){
 		String	sql="SELECT ord.status ord_status,ord.total_price ord_total_price,ord,ord.order_date ord_order_date,"
-		+" ord.id ord_id,ori.id ori_id,ori.quantity ori_quantity,ori.size ori_size,itm.name itm_name,itm.price_m itm_price_m,itm.price_l itm_price_l,itm.image_path itm_image_path "
+		+" ord.id ord_id,ori.id ori_id,ori.quantity ori_quantity,ori.size ori_size,itm.name itm_name,itm.id itm_id,itm.price_m itm_price_m,itm.price_l itm_price_l,itm.image_path itm_image_path "
 		+ "FROM orders ord "
 		+ "JOIN order_items ori ON ord.id=ori.order_id "
 		+ "JOIN items itm ON ori.item_id = itm.id "
