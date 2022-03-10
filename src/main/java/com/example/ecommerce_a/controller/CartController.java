@@ -41,7 +41,6 @@ public class CartController {
 			orderItemList = cartService.findOrderItemList(userId);
 		}
 		
-		System.out.println(orderItemList);
 		for(OrderItem orderItem : orderItemList) {
 			totalMap.put(orderItem.getId(),orderItem.getSubTotal());
 		}

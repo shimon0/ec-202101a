@@ -8,11 +8,11 @@ function ShowCheckResult()
    }
    //チェックデジット判定
    if(luhn_checksum(in_card_num) == false){
-      alert("チェックNG"); 
+      alert("クレジットカードの番号が不正です"); 
       return;
    }
    //チェックOK
-   alert("チェックOK"); 
+   alert("クレジットカードの番号は正常です"); 
 }
 
 //数値チェック
