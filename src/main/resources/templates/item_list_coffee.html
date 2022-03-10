@@ -51,11 +51,11 @@
               <th:block th:unless="${session.userId} == null">
              	<span th:text="${session.userName + 'さん こんにちは！'}" style="font-weight:900;">山田さん</span>&nbsp;&nbsp;
               </th:block>
-              <a href="cart_list.html" th:href="@{/userPage}" class="navbar-link">マイページ</a
+              <a href="cart_list.html" th:href="@{/userPage}" class="navbar-link" onclick="alertFunction()">マイページ</a
               >&nbsp;&nbsp;
               <a href="cart_list.html" th:href="@{/shoppingCart}" class="navbar-link">ショッピングカート</a
               >&nbsp;&nbsp;
-              <a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link">注文履歴</a
+              <a href="order_history.html" th:href="@{/orderHistory}" class="navbar-link" onclick="alertFunction()">注文履歴</a
               >&nbsp;&nbsp;
               <th:block th:switch="true">
 				<a th:case="${session.userId} == null AND ${session.preId} == null" th:href="@{/login}" class="navbar-link">ログイン</a>
@@ -98,6 +98,7 @@
                       name="searchWord"
                       id="code"
                       class="form-control input-sm"
+                      value=""
                     />
                   </div>
                 </div>
@@ -176,5 +177,6 @@
     <script th:src="@{/js/itemAutoComplete.js}"></script>
     <script th:src="@{/js/paginathing.js}"></script>
     <script th:src="@{/js/paging.js}"></script>
+    <script th:src="@{/js/alert.js}"></script>
   </body>
 </html>

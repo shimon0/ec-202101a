@@ -37,13 +37,14 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
+					<input type ="hidden" id="js_userId" th:value="${session.userId}" />
 					<p class="navbar-text navbar-right">
-					<a href="cart_list.html" th:href="@{/userPage}" class="navbar-link">マイページ</a
+					<a href="cart_list.html" th:href="@{/userPage}" class="navbar-link" onclick="alertFunction()">マイページ</a
               >&nbsp;&nbsp;
 						<a href="cart_list.html" th:href="@{/shoppingCart}"
 							class="navbar-link">ショッピングカート</a>&nbsp;&nbsp; <a
 							href="order_history.html" th:href="@{/orderHistory}"
-							class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+							class="navbar-link" onclick="alertFunction()">注文履歴</a>&nbsp;&nbsp;
 						<th:block th:switch="true">
 							<a
 								th:case="${session.userId} == null AND ${session.preId} == null"
@@ -332,6 +333,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="../static/js/bootstrap.min.js"></script>
 		<script th:src="@{/js/auto_hyphen.js}"></script>
+		<script th:src="@{/js/alert.js}"></script>
 		
 </body>
 </html>
