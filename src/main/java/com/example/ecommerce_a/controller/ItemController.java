@@ -42,7 +42,6 @@ public class ItemController {
     @RequestMapping("/searchWord")
     public String findByLikeWord(String searchWord,String select,Model model){
     	if(select==null) {
-    		model.addAttribute("searchWord",searchWord);
     		return "forward:/shoppingList";
     	}
         if(select.equals("low")){
