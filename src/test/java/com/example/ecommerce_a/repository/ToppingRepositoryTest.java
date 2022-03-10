@@ -1,23 +1,29 @@
 package com.example.ecommerce_a.repository;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Repository;
 
 import com.example.ecommerce_a.domain.OrderTopping;
 import com.example.ecommerce_a.domain.Topping;
+@SpringBootTest
+class ToppingRepositoryTest {
 
-@Repository
-public class ToppingRepository {
-    @Autowired
+	@Autowired
+	private ToppingRepository repository;
+	
+	@Autowired
 	private NamedParameterJdbcTemplate template;
-
-    private static final RowMapper<Topping> TOPPING_ROW_MAPPER=(rs,i)->{
+	
+	private static final RowMapper<Topping> TOPPING_ROW_MAPPER=(rs,i)->{
         Topping topping=new Topping();
         topping.setId(rs.getInt("id"));
         topping.setName(rs.getString("name"));
@@ -25,18 +31,20 @@ public class ToppingRepository {
         topping.setPriceM(rs.getInt("price_m"));
         return topping;
     };
+    
+	@Test
+	void testFindAll() {
+		List<Topping> toppinglList = repository.findAll();
+		assertEquals("コーヒークリーム", toppinglList.get(0).getName(),"違います");
+	}
 
-    public List<Topping> findAll(){
-        String sql="SELECT * FROM toppings";
-        List<Topping> toppingList=template.query(sql,TOPPING_ROW_MAPPER);
-        return toppingList;
-
-    }
-
-    public void insert(OrderTopping orderTopping) {
-    	String sql="INSERT INTO order_toppings(topping_id,order_item_id)VALUES(:toppingId,:orederItemId);";
-        SqlParameterSource param=new MapSqlParameterSource().addValue("toppingId", orderTopping.getToppingId()).addValue("orederItemId", orderTopping.getOrderItemId());
-        template.update(sql,param);
+	@Test
+	void testInsert() {
+		OrderTopping orderTopping = new OrderTopping();
+		orderTopping.setToppingId(1);
+		orderTopping.setOrderItemId(1);
+		repository.insert(orderTopping);
         
-    }
+	}
+
 }
