@@ -100,13 +100,14 @@
                 <tr th:each="orderItemList : ${orderHistory.orderItemList}">
                   <td>
                     <div class="center">
+                    	<a th:href="@{/itemDetail?id=}+${orderItemList.item.id}">
                       <img
                         src="../static/img_coffee/1.jpg"
                         th:src="@{/img_coffee/{imagePath}(imagePath=${orderItemList.item.imagePath})}"
                         class="img-responsive img-rounded item-img-center"
                         width="100"
                         height="300"
-                      /><br />
+                      /></a><br />
                     </div>
                   </td>
                   <td>
