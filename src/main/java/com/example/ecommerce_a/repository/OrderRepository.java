@@ -20,24 +20,15 @@ import com.example.ecommerce_a.domain.Topping;
 @Repository
 public class OrderRepository {
 	
-	  //ResultSetオブジェクトに格納された複数行分のデータをList<Clab>変数にセットしてreturnする
 	  private static final ResultSetExtractor<List<OrderItem>> ORDER_ITEM_RESULTSET = (rs) -> {
-	    //初めにデータを格納するための変数を宣言
 	    List<OrderItem> orderItemList = new ArrayList<>(); 
-
-	    //メンバーを格納するためのList<Member>変数を宣言(値はNullを格納しておく)
 	    List<OrderTopping>toppingList = null;
 
-	    //clabsテーブルは結合した際に複数行にわたり同じデータが出力される可能性があるため、前のClabテーブルのIDを保持するための変数を宣言
 	    int beforeIdNum = 0;
 
-
-	    //ResultSetオブジェクトに格納された複数のデータをList<Clab>変数に格納していく
 	    while(rs.next()) {
-	      //現在検索しているClabテーブルのIDを格納するための変数を宣言
 	      int nowIdNum = rs.getInt("ori_id");
-
-	      //現在検索しているClabテーブルのIDと前のClabテーブルのIDが違う場合は新たにClabオブジェクトを作成する
+	      
 	      if (nowIdNum != beforeIdNum) {
 	        OrderItem orderItem = new OrderItem();
 	        orderItem.setId(nowIdNum);
@@ -51,15 +42,12 @@ public class OrderRepository {
 	        item.setPriceL(rs.getInt("itm_price_l"));
 	        item.setImagePath(rs.getString("itm_image_path"));
 	        orderItem.setItem(item);
-	        //メンバーがいた際にClabオブジェクトのmemberListに格納するため空のArrayListをセットしておく
+	        
 	        toppingList = new ArrayList<OrderTopping>();
 	        orderItem.setOrderToppingList(toppingList);
 	        orderItemList.add(orderItem);
 	      }
 	      
-	      
-
-	      //ClabにMemberがいない場合はMemberオブジェクトを作成しないようにする
 	      if (rs.getInt("top_id") != 0) {
 	        OrderTopping orderTopping = new OrderTopping();
 	        Topping topping = new Topping();
@@ -67,13 +55,9 @@ public class OrderRepository {
 	        topping.setPriceM(rs.getInt("top_price_m"));
 	        topping.setPriceL(rs.getInt("top_price_l"));
 	        orderTopping.setTopping(topping);
-	        //orderTopping.set(rs.getString("m_name"));
-	        //memberをclabオブジェクト内にセットされているmemberListに直接追加する
 	        toppingList.add(orderTopping);
 	      }
 
-
-	      //現在検索しているClabテーブルのIDを前のClabテーブルのIDを入れるbeforeIdNumに代入する
 	      beforeIdNum = nowIdNum;
 	    }
 	    return orderItemList;
