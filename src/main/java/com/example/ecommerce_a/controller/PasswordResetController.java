@@ -10,10 +10,15 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.ecommerce_a.domain.PasswordReset;
 import com.example.ecommerce_a.domain.User;
+import com.example.ecommerce_a.domain.model.GroupOrder;
+import com.example.ecommerce_a.form.PasswordForm;
 import com.example.ecommerce_a.service.PasswordResetService;
 import com.example.ecommerce_a.service.UserService;
 
@@ -67,16 +72,28 @@ public class PasswordResetController {
 		session.setAttribute("uniqueUrl", key);
 		return "reset_password";
 	}
-
+    @ModelAttribute
+    private PasswordForm setUpPasswordForm() {
+		return new PasswordForm();
+	}
 	@RequestMapping("/passwordResetFinished")
-	public String registerRePassword(String newPassword) {
+	public String registerRePassword(@Validated(GroupOrder.class) PasswordForm form,BindingResult result) {
+		System.out.println(form.getNewPassword());
+		System.out.println(form.getConfirmpassword());
+		if (!form.getNewPassword().equals(form.getConfirmpassword())){
+			result.rejectValue("confirmpassword", "", "パスワードが一致していません");
+		}
+		
+		if (result.hasErrors()) {
+			return "reset_password";
+		}
+	
 		PasswordReset reset = new PasswordReset();
 		String userEmail = (String) session.getAttribute("userEmailPass");
 		reset.setUserEmail(userEmail);
 		reset.setUniqueUrl((String) session.getAttribute("uniqueUrl"));
 		service.insert(reset);
-		System.out.println(newPassword);
-		userService.updatePassword(userEmail, newPassword);
+		userService.updatePassword(userEmail, form.getNewPassword());
 		
 		return "reset_finished";
 	}
